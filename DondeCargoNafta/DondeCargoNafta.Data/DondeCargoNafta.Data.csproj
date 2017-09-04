@@ -48,6 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EFContext.cs" />
+    <Compile Include="Migrations\201709041500180_0001_Migration.cs" />
+    <Compile Include="Migrations\201709041500180_0001_Migration.Designer.cs">
+      <DependentUpon>201709041500180_0001_Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +64,11 @@
       <Project>{26affd30-3116-46a7-b456-45f1fac21c29}</Project>
       <Name>DondeCargoNafta.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201709041500180_0001_Migration.resx">
+      <DependentUpon>201709041500180_0001_Migration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

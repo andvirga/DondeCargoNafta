@@ -94,7 +94,7 @@ namespace DondeCargoNafta.Data.Migrations
                 .Index(t => t.Address_AddressID)
                 .Index(t => t.Brand_BrandID)
                 .Index(t => t.Coordinates_LocationID);
-            
+
         }
         
         public override void Down()

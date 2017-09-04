@@ -29,10 +29,10 @@ namespace DondeCargoNafta.Data.Migrations
             context.SaveChanges();
 
             context.Fuels.AddOrUpdate(f => new { f.FuelName, f.FuelType, f.FuelGrade },
-                new Fuel { FuelName = "SUPER", FuelType = FuelType.Gas, FuelGrade = FuelGrade.Regular },
-                new Fuel { FuelName = "INFINIA", FuelType = FuelType.Gas, FuelGrade = FuelGrade.Premium },
-                new Fuel { FuelName = "DIESEL", FuelType = FuelType.Diesel, FuelGrade = FuelGrade.Regular },
-                new Fuel { FuelName = "DIESEL INFINIA", FuelType = FuelType.Diesel, FuelGrade = FuelGrade.Premium }
+                new Fuel { FuelName = "REGULAR GAS", FuelType = FuelType.Gas, FuelGrade = FuelGrade.Regular },
+                new Fuel { FuelName = "PREMIUM GAS", FuelType = FuelType.Gas, FuelGrade = FuelGrade.Premium },
+                new Fuel { FuelName = "REGULAR DIESEL", FuelType = FuelType.Diesel, FuelGrade = FuelGrade.Regular },
+                new Fuel { FuelName = "PREMIUM DIESEL", FuelType = FuelType.Diesel, FuelGrade = FuelGrade.Premium }
              );
 
             context.SaveChanges();

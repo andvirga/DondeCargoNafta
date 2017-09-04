@@ -18,6 +18,8 @@ namespace DondeCargoNafta.Data.Repositories
                 .Include(nameof(Station.Brand))
                 .Include(nameof(Station.Coordinates))
                 .Include(nameof(Station.FuelPrices))
+                .Include($"{nameof(Station.FuelPrices)}.{nameof(FuelPrice.Fuel)}")
+                .Include($"{nameof(Station.FuelPrices)}.{nameof(FuelPrice.Price)}")
                 .ToList();
         }
 
@@ -29,6 +31,30 @@ namespace DondeCargoNafta.Data.Repositories
                 .Include(nameof(Station.Coordinates))
                 .Include(nameof(Station.FuelPrices))
                 .SingleOrDefault(s => s.StationID == ID);
+        }
+
+        public void UpdateStation(Station stationToUpdate)
+        {
+            try
+            {
+                Context.Stations.Attach(stationToUpdate);
+
+                Context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Error al guardar en Base de Datos");
+            }
+        }
+
+        public Fuel GetFuelByTypeAndGrade(FuelType fuelType, FuelGrade fuelGrade)
+        {
+            var fuel = Context.Fuels.SingleOrDefault(f => f.FuelType == fuelType && f.FuelGrade == fuelGrade);
+
+            if (fuel == null)
+                fuel = new Fuel() { FuelType = fuelType, FuelGrade = fuelGrade, FuelName = fuelType.ToString() + fuelGrade.ToString() };
+
+            return fuel;
         }
     }
 }

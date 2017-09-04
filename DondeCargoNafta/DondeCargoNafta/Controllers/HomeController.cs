@@ -1,4 +1,5 @@
 ﻿using DondeCargoNafta.Data.Repositories;
+using DondeCargoNafta.Entities;
 using DondeCargoNafta.Models;
 using System;
 using System.Collections.Generic;
@@ -28,11 +29,30 @@ namespace DondeCargoNafta.Controllers
             return View(viewModel);
         }
 
-        //[HttpPost]
-        //public ActionResult Rate()
-        //{
-        //    return View();
-        //}
+        [Route("Home/Rate")]
+        [HttpPost]
+        public ActionResult Rate(RateViewModel rateViewModel)
+        {
+            var stationToUpdate = this._stationRepo.GetStationByID(rateViewModel.Station.StationID);
+
+            var fuelPrices = new List<FuelPrice>();
+
+            //RegularGas
+            UpdateStationPrice(stationToUpdate, rateViewModel.RegularGas, FuelType.Gas, FuelGrade.Regular);
+
+            //PremiumGas
+            UpdateStationPrice(stationToUpdate, rateViewModel.PremiumGas, FuelType.Gas, FuelGrade.Premium);
+
+            //RegularDiesel
+            UpdateStationPrice(stationToUpdate, rateViewModel.RegularDiesel, FuelType.Diesel, FuelGrade.Regular);
+
+            //PremiumDiesel
+            UpdateStationPrice(stationToUpdate, rateViewModel.PremiumDiesel, FuelType.Diesel, FuelGrade.Premium);
+
+            this._stationRepo.UpdateStation(stationToUpdate);
+
+            return RedirectToAction("Index");
+        }
 
         public ActionResult About()
         {
@@ -46,6 +66,23 @@ namespace DondeCargoNafta.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        private void UpdateStationPrice(Station station, double priceValue, FuelType fuelType, FuelGrade fuelGrade)
+        {
+            var fuelPrice = station.FuelPrices.SingleOrDefault(x => x.Fuel?.FuelType == fuelType && x.Fuel?.FuelGrade == fuelGrade);
+            if (fuelPrice == null)
+            {
+                fuelPrice = new FuelPrice()
+                {
+                    Fuel = _stationRepo.GetFuelByTypeAndGrade(fuelType, fuelGrade),
+                    Price = new Price()
+                };
+
+                station.FuelPrices.Add(fuelPrice);
+            }
+
+            fuelPrice.Price.PriceValue = priceValue;
         }
     }
 }

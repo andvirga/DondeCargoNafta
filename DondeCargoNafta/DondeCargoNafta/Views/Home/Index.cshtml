@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<DondeCargoNafta.Entities.Station>
+@{
     ViewBag.Title = "Donde Cargo Nafta";
 }
 <div id="map"></div>
@@ -14,56 +15,65 @@
 
         var iconBase = '/images/';
         var icons = {
-            axion: {
+            AXION: {
                 icon: iconBase + 'axion.png'
             },
-            esso: {
+            ESSO: {
                 icon: iconBase + 'esso.png'
             },
-            oil: {
+            OIL: {
                 icon: iconBase + 'oil.png'
             },
-            otras: {
+            OTHER: {
                 icon: iconBase + 'otras.png'
             },
-            shell: {
+            PETROBRAS: {
+                icon: iconBase + 'otras.png'
+            },
+            SHELL: {
                 icon: iconBase + 'shell.png'
             },
-            ypf: {
+            YPF: {
                 icon: iconBase + 'ypf.png'
             }
         };
 
-        var features = [
-            {
-                position: new google.maps.LatLng(-32.942139, -60.661243),
-                type: 'axion'
-            }, {
-                position: new google.maps.LatLng(-32.951205, -60.654990),
-                type: 'esso'
-            }, {
-                position: new google.maps.LatLng(-32.968367, -60.641108),
-                type: 'oil'
-            }, {
-                position: new google.maps.LatLng(-32.954650, -60.641566),
-                type: 'otras'
-            }, {
-                position: new google.maps.LatLng(-32.943738, -60.653540),
-                type: 'shell'
-            },
-            {
-                position: new google.maps.LatLng(-32.950115, -60.655131),
-                type: 'ypf'
-            }
-        ];
+        var features = [];
 
-        // Create markers.
-        features.forEach(function (feature) {
-            var marker = new google.maps.Marker({
+        @foreach(var station in Model)
+        {
+            <text>
+                var feature = 
+                    {
+                        position: new google.maps.LatLng(@station.Coordinates.Latitude, @station.Coordinates.Longitude),
+                        type: '@station.Brand.BrandName',
+                        description: '@station.StationName'
+                    }
+
+                features.push(feature);
+            </text> 
+        }
+
+    //        < div class="bubbleContent" >
+    //            <p>Nombre: <b>YPF Oroño</b></p>
+    //            <p>Direccion: <b>Oroño y 3 de Febrero</b></p>
+    //            <p>Bandera: <b>YPF</b></p>
+    //            <div class="prices">
+    //                <p>Precios</p>
+    //                <p>Super: <i>$22.50</i></p>
+    //                <p>Premium: <i>No Disponible</i></p>
+    //                <p>Diesel: <i>No Disponible</i></p>
+    //            </div>
+    //            <input type="button" class="btn btn-success btn-block" value="Rate" />
+    //</div>
+
+            // Create markers.
+            features.forEach(function (feature) {
+                var marker = new google.maps.Marker({
                 position: feature.position,
                 icon: icons[feature.type].icon,
                 map: map
-            });
+                });
         });
     }
 </script>

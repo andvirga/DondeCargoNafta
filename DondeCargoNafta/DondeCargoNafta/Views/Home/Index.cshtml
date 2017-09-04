@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DondeCargoNafta.Entities.Station>
+﻿@using DondeCargoNafta.Entities;
+@model IEnumerable<DondeCargoNafta.Entities.Station>
 @{
     ViewBag.Title = "Donde Cargo Nafta";
 }
@@ -40,42 +41,72 @@
 
         var features = [];
 
-        @foreach(var station in Model)
+
+        @foreach (var station in Model)
         {
             <text>
-                var feature = 
+
+                var stationDesc = {
+                    'name': '@station.StationName',
+                    'street': '@station.Address.Street',
+                    'number': '@station.Address.Number',
+                    'RegularGas': '@(station.FuelPrices.SingleOrDefault(x => x.Fuel.FuelType == FuelType.Gas && x.Fuel.FuelGrade == FuelGrade.Regular)?.Price.PriceValue ?? 0)',
+                    'PremiumGas': '@(station.FuelPrices.SingleOrDefault(x => x.Fuel.FuelType == FuelType.Gas && x.Fuel.FuelGrade == FuelGrade.Premium)?.Price.PriceValue ?? 0) ',
+                    'RegularDiesel': '@(station.FuelPrices.SingleOrDefault(x => x.Fuel.FuelType == FuelType.Diesel && x.Fuel.FuelGrade == FuelGrade.Regular)?.Price.PriceValue ?? 0)',
+                    'PremiumDiesel': '@(station.FuelPrices.SingleOrDefault(x => x.Fuel.FuelType == FuelType.Diesel && x.Fuel.FuelGrade == FuelGrade.Premium)?.Price.PriceValue ?? 0)'
+                }
+
+                var feature =
                     {
                         position: new google.maps.LatLng(@station.Coordinates.Latitude, @station.Coordinates.Longitude),
                         type: '@station.Brand.BrandName',
-                        description: '@station.StationName'
+                        description: getDescription(stationDesc)
                     }
 
                 features.push(feature);
-            </text> 
+            </text>
         }
 
-    //        < div class="bubbleContent" >
-    //            <p>Nombre: <b>YPF Oroño</b></p>
-    //            <p>Direccion: <b>Oroño y 3 de Febrero</b></p>
-    //            <p>Bandera: <b>YPF</b></p>
-    //            <div class="prices">
-    //                <p>Precios</p>
-    //                <p>Super: <i>$22.50</i></p>
-    //                <p>Premium: <i>No Disponible</i></p>
-    //                <p>Diesel: <i>No Disponible</i></p>
-    //            </div>
-    //            <input type="button" class="btn btn-success btn-block" value="Rate" />
-    //</div>
+
 
             // Create markers.
-            features.forEach(function (feature) {
-                var marker = new google.maps.Marker({
+        features.forEach(function (feature) {
+            var marker = new google.maps.Marker({
                 position: feature.position,
                 icon: icons[feature.type].icon,
                 map: map
+            });
+
+            var infowindow = new google.maps.InfoWindow({
+                content: feature.description
+            });
+
+            if (feature.description != null) {
+                marker.addListener('click', function () {
+                    infowindow.open(map, marker);
                 });
+            }
+
         });
     }
+
+    function getDescription(stationDesc) {
+
+        var str = '<div class="bubbleContent">' +
+            '<p> Nombre: <b>' + stationDesc.name + '</b></p>' +
+            '<p>Direccion: <b>' + stationDesc.street + '</b></p>' +
+            '<div class="prices">' +
+            '<p>Precios</p>' +
+            '<p>Nafta Super   : <i>$' + stationDesc.RegularGas + '</i></p>' +
+            '<p>Nafta Premium : <i>$' + stationDesc.PremiumGas + '</i></p>' +
+            '<p>Gasoil Comun  : <i>$' + stationDesc.RegularDiesel + '</i></p>' +
+            '<p>Gasoil Premium: <i>$' + stationDesc.PremiumDiesel + '</i></p>' +
+            '</div> <input type="button" class="btn btn-success btn-block" value="Rate" />' +
+            '</div>';
+
+        return str;
+    }
+
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwHAf2L2j-7mCjh9ArSAxCLvNdUxgp-Hg&callback=initMap">

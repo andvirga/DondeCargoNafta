@@ -17,6 +17,7 @@ namespace DondeCargoNafta.Data.Repositories
                 .Include(nameof(Station.Address))
                 .Include(nameof(Station.Brand))
                 .Include(nameof(Station.Coordinates))
+                .Include(nameof(Station.FuelPrices))
                 .ToList();
         }
     }

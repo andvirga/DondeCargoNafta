@@ -30,6 +30,8 @@ namespace DondeCargoNafta.Data.Repositories
                 .Include(nameof(Station.Brand))
                 .Include(nameof(Station.Coordinates))
                 .Include(nameof(Station.FuelPrices))
+                .Include($"{nameof(Station.FuelPrices)}.{nameof(FuelPrice.Fuel)}")
+                .Include($"{nameof(Station.FuelPrices)}.{nameof(FuelPrice.Price)}")
                 .SingleOrDefault(s => s.StationID == ID);
         }
 

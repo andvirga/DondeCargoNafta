@@ -24,7 +24,14 @@ namespace DondeCargoNafta.Controllers
         {
             var station = this._stationRepo.GetStationByID(ID);
 
-            var viewModel = new RateViewModel() { Station = station };
+            var viewModel = new RateViewModel()
+            {
+                Station = station,
+                RegularGas = station.FuelPrices.SingleOrDefault(p => p.Fuel.FuelType == FuelType.Gas && p.Fuel.FuelGrade == FuelGrade.Regular)?.Price.PriceValue ?? 0,
+                PremiumGas = station.FuelPrices.SingleOrDefault(p => p.Fuel.FuelType == FuelType.Gas && p.Fuel.FuelGrade == FuelGrade.Premium)?.Price.PriceValue ?? 0,
+                RegularDiesel = station.FuelPrices.SingleOrDefault(p => p.Fuel.FuelType == FuelType.Diesel && p.Fuel.FuelGrade == FuelGrade.Regular)?.Price.PriceValue ?? 0,
+                PremiumDiesel = station.FuelPrices.SingleOrDefault(p => p.Fuel.FuelType == FuelType.Diesel && p.Fuel.FuelGrade == FuelGrade.Premium)?.Price.PriceValue ?? 0
+            };
 
             return View(viewModel);
         }

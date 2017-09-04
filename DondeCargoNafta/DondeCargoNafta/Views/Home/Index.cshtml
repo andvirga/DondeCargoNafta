@@ -1,22 +1,71 @@
 ﻿@{
     ViewBag.Title = "Donde Cargo Nafta";
 }
-
-<h1>Mapa</h1>
-<div id="map" style=" height: 400px; width: 100%;"></div>
-
+<div id="map"></div>
 <script>
-        function initMap() {
-            var Rosario = { lat: -32.9507, lng: -60.6665 };
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 15,
-                center: Rosario
-            });
+    var map;
+    function initMap() {
+
+        var Rosario = { lat: -32.9507, lng: -60.6665 };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: Rosario
+        });
+
+        var iconBase = '/images/';
+        var icons = {
+            axion: {
+                icon: iconBase + 'axion.png'
+            },
+            esso: {
+                icon: iconBase + 'esso.png'
+            },
+            oil: {
+                icon: iconBase + 'oil.png'
+            },
+            otras: {
+                icon: iconBase + 'otras.png'
+            },
+            shell: {
+                icon: iconBase + 'shell.png'
+            },
+            ypf: {
+                icon: iconBase + 'ypf.png'
+            }
+        };
+
+        var features = [
+            {
+                position: new google.maps.LatLng(-32.942139, -60.661243),
+                type: 'axion'
+            }, {
+                position: new google.maps.LatLng(-32.951205, -60.654990),
+                type: 'esso'
+            }, {
+                position: new google.maps.LatLng(-32.968367, -60.641108),
+                type: 'oil'
+            }, {
+                position: new google.maps.LatLng(-32.954650, -60.641566),
+                type: 'otras'
+            }, {
+                position: new google.maps.LatLng(-32.943738, -60.653540),
+                type: 'shell'
+            },
+            {
+                position: new google.maps.LatLng(-32.950115, -60.655131),
+                type: 'ypf'
+            }
+        ];
+
+        // Create markers.
+        features.forEach(function (feature) {
             var marker = new google.maps.Marker({
-                position: Rosario,
+                position: feature.position,
+                icon: icons[feature.type].icon,
                 map: map
             });
-        }
+        });
+    }
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwHAf2L2j-7mCjh9ArSAxCLvNdUxgp-Hg&callback=initMap">

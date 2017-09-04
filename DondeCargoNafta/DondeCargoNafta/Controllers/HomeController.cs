@@ -1,4 +1,5 @@
 ﻿using DondeCargoNafta.Data.Repositories;
+using DondeCargoNafta.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,29 @@ namespace DondeCargoNafta.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly StationsRepository _stationRepo = new StationsRepository();
+
         public ActionResult Index()
         {
-            var stations = new StationsRepository().GetStations();
+            var stations = this._stationRepo.GetStations();
             return View(stations);
         }
+
+        [Route("Home/Rate/{ID:int}")]
+        public ActionResult Rate(int ID)
+        {
+            var station = this._stationRepo.GetStationByID(ID);
+
+            var viewModel = new RateViewModel() { Station = station };
+
+            return View(viewModel);
+        }
+
+        //[HttpPost]
+        //public ActionResult Rate()
+        //{
+        //    return View();
+        //}
 
         public ActionResult About()
         {

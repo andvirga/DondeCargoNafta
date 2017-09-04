@@ -3,13 +3,16 @@
 @{
     ViewBag.Title = "Donde Cargo Nafta";
 }
+
+@Html.ActionLink("RATE", "Rate", "Home")
+
 <div id="map"></div>
 
-<div class="modal fade bs-example-modal-lg" id="rateStationModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+@*<div class="modal fade bs-example-modal-lg" id="rateStationModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         @Html.Partial("_RateStation")
     </div>
-</div>
+</div>*@
 
 <script>
     var map;
@@ -53,7 +56,8 @@
         {
             <text>
 
-                var stationDesc = {
+        var stationDesc = {
+                    "ID" : '@station.StationID',
                     'name': '@station.StationName',
                     'street': '@station.Address.Street',
                     'number': '@station.Address.Number',
@@ -108,13 +112,14 @@
             '<p>Nafta Premium : <i>$' + stationDesc.PremiumGas + '</i></p>' +
             '<p>Gasoil Comun  : <i>$' + stationDesc.RegularDiesel + '</i></p>' +
             '<p>Gasoil Premium: <i>$' + stationDesc.PremiumDiesel + '</i></p>' +
-            '</div> <input type="button" class="btn btn-success btn-block" value="Rate" onclick="ShowRateModal()" />' +
+            '</div>' +
+            '<a class="btn btn-success" href="/Home/Rate/' + stationDesc.ID + '">RATE</a>' +
             '</div>';
 
         return str;
     }
 
-    function ShowRateModal() {
+    function ShowRateModal(stationID) {
         $('#rateStationModal').modal('show');
     }
 

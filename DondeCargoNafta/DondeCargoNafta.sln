@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DondeCargoNafta", "DondeCargoNafta\DondeCargoNafta.csproj", "{66B1AB9B-892D-46D4-BEFC-815FA6EF5A37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DondeCargoNafta.Data", "DondeCargoNafta.Data\DondeCargoNafta.Data.csproj", "{B9D66F7E-7654-477C-9BDA-0FE87C4898CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DondeCargoNafta.Entities", "DondeCargoNafta.Entities\DondeCargoNafta.Entities.csproj", "{26AFFD30-3116-46A7-B456-45F1FAC21C29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{66B1AB9B-892D-46D4-BEFC-815FA6EF5A37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66B1AB9B-892D-46D4-BEFC-815FA6EF5A37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66B1AB9B-892D-46D4-BEFC-815FA6EF5A37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9D66F7E-7654-477C-9BDA-0FE87C4898CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9D66F7E-7654-477C-9BDA-0FE87C4898CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9D66F7E-7654-477C-9BDA-0FE87C4898CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9D66F7E-7654-477C-9BDA-0FE87C4898CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26AFFD30-3116-46A7-B456-45F1FAC21C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26AFFD30-3116-46A7-B456-45F1FAC21C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26AFFD30-3116-46A7-B456-45F1FAC21C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26AFFD30-3116-46A7-B456-45F1FAC21C29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

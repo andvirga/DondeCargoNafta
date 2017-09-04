@@ -25,6 +25,10 @@
 #map {
     height: 100%;
 }
+.editButtons {
+    width: 125px;
+    margin: 0 5px;
+}
 
 .navbar {
     margin-bottom: 0;
@@ -44,8 +48,18 @@
     color: #fff;
     text-shadow: 1px 2px #555;
 }
-
-
+.bubbleContent .btn {
+    padding: 3px 10px;
+    border-radius: 2px;
+}
+.prices {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+.prices i {
+    font-weight: bold;
+    font-size: 1.3em;
+}
 footer {
     position: relative;
     bottom: 0;

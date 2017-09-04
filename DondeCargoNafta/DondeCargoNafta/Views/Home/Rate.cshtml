@@ -1,69 +1,58 @@
 ﻿@model DondeCargoNafta.Models.RateViewModel
 
 @{
-    ViewBag.Title = "Rate";
+    ViewBag.Title = "Edición Precios";
 }
+<div class="container">
+    <h2>@Model.Station.StationName</h2>
 
-<h2>View</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Station</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Station.StationID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Station.StationName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <p>@Model.Station.StationName</p>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Station.StationID)
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.Station.StationName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <p>@Model.Station.StationName</p>
+                    </div>
+                </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.RegularGas, new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.RegularGas, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PremiumGas, new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.PremiumGas, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.RegularDiesel, new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.RegularDiesel, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PremiumDiesel, new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.PremiumDiesel, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-offset-2">
+                    <input type="submit" value="Guardar" class="btn btn-success editButtons" />
+                    @Html.ActionLink("Volver al Mapa", "Index", null, new {@class= "btn btn-primary editButtons" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RegularGas)
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.RegularGas)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PremiumGas, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.PremiumGas)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RegularDiesel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.RegularDiesel)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PremiumDiesel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.PremiumDiesel)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    }
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

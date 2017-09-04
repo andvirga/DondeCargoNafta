@@ -4,15 +4,7 @@
     ViewBag.Title = "Donde Cargo Nafta";
 }
 
-@Html.ActionLink("RATE", "Rate", "Home")
-
 <div id="map"></div>
-
-@*<div class="modal fade bs-example-modal-lg" id="rateStationModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        @Html.Partial("_RateStation")
-    </div>
-</div>*@
 
 <script>
     var map;
@@ -107,13 +99,13 @@
             '<p> Nombre: <b>' + stationDesc.name + '</b></p>' +
             '<p>Direccion: <b>' + stationDesc.street + '</b></p>' +
             '<div class="prices">' +
-            '<p>Precios</p>' +
+            '<p><b>Precios</b></p>' +
             '<p>Nafta Super   : <i>$' + stationDesc.RegularGas + '</i></p>' +
             '<p>Nafta Premium : <i>$' + stationDesc.PremiumGas + '</i></p>' +
             '<p>Gasoil Comun  : <i>$' + stationDesc.RegularDiesel + '</i></p>' +
             '<p>Gasoil Premium: <i>$' + stationDesc.PremiumDiesel + '</i></p>' +
             '</div>' +
-            '<a class="btn btn-success" href="/Home/Rate/' + stationDesc.ID + '">RATE</a>' +
+            '<a class="btn btn-success btn-block" href="/Home/Rate/' + stationDesc.ID + '">EDITAR PRECIOS</a>' +
             '</div>';
 
         return str;

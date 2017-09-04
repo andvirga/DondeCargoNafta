@@ -1,22 +1,64 @@
-﻿@{
+﻿@model IEnumerable<DondeCargoNafta.Entities.Station>
+
+@{
     ViewBag.Title = "Donde Cargo Nafta";
 }
 
-<h1>Mapa</h1>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsGNC)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsGNC)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.StationID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.StationID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.StationID })
+            </td>
+        </tr>
+    }
+
+</table>
+
 <div id="map" style=" height: 400px; width: 100%;"></div>
 
 <script>
-        function initMap() {
-            var Rosario = { lat: -32.9507, lng: -60.6665 };
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 15,
-                center: Rosario
-            });
-            var marker = new google.maps.Marker({
-                position: Rosario,
-                map: map
-            });
+    function initMap() {
+        var Rosario = { lat: -32.9507, lng: -60.6665 };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: Rosario
+        });
+
+        @foreach (var item in Model)
+        {
+            <text>
+                new google.maps.Marker({
+                    position: { lat: @item.Coordinates.Latitude, lng: @item.Coordinates.Longitude },
+                    map: map
+                });
+            </text>
         }
+    }
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwHAf2L2j-7mCjh9ArSAxCLvNdUxgp-Hg&callback=initMap">

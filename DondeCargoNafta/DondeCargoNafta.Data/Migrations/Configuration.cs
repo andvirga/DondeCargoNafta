@@ -26,6 +26,8 @@ namespace DondeCargoNafta.Data.Migrations
                 new Brand { BrandName = "OTHER" }
              );
 
+            context.SaveChanges();
+
             context.Fuels.AddOrUpdate(f => new { f.FuelName, f.FuelType, f.FuelGrade },
                 new Fuel { FuelName = "SUPER", FuelType = FuelType.Gas, FuelGrade = FuelGrade.Regular },
                 new Fuel { FuelName = "INFINIA", FuelType = FuelType.Gas, FuelGrade = FuelGrade.Premium },
@@ -33,21 +35,40 @@ namespace DondeCargoNafta.Data.Migrations
                 new Fuel { FuelName = "DIESEL INFINIA", FuelType = FuelType.Diesel, FuelGrade = FuelGrade.Premium }
              );
 
-            context.Addresses.AddOrUpdate(a => new {a.City, a.State, a.Street, a.Number }, 
-                new Address { City = "ROS", State = "SFE", Street = "Avellaneda", Number = "700" });
+            context.SaveChanges();
 
-            context.Locations.AddOrUpdate(l => new {l.Latitude, l.Longitude }, 
-                new Location { Latitude = -32.939186, Longitude = -60.6783208 });
+            context.Addresses.AddOrUpdate(a => new { a.City, a.State, a.Street, a.Number }, 
+                new Address { City = "ROS", State = "SFE", Street = "Avellaneda", Number = "700" },
+                new Address { City = "ROS", State = "SFE", Street = "Oroño", Number = "1302" });
+
+            context.SaveChanges();
+
+
+            context.Locations.AddOrUpdate(l => new { l.Latitude, l.Longitude }, 
+                new Location { Latitude = -32.939186, Longitude = -60.6783208 },
+                new Location { Latitude = -32.9503938, Longitude = -60.6547784 });
+
+            context.SaveChanges();
 
             context.Stations.AddOrUpdate(s => new { s.Address, s.Brand, s.Coordinates, s.IsGNC, s.StationName },
                 new Station
                 {
-                    Address = context.Addresses.FirstOrDefault(),
-                    Brand = context.Brands.SingleOrDefault(b => b.BrandName == "YPF"),
-                    Coordinates = context.Locations.FirstOrDefault(),
+                    //Address = context.Addresses.FirstOrDefault(x => x.AddressID == 1),
+                    //Brand = context.Brands.SingleOrDefault(b => b.BrandName == "YPF"),
+                    //Coordinates = context.Locations.FirstOrDefault(),
                     IsGNC = true,
-                    StationName = "YPF El Surtidor"
+                    StationName = "El Surtidor"
+                },
+                new Station
+                {
+                    //Address = context.Addresses.FirstOrDefault(x => x.Street == "Oroño"),
+                    //Brand = context.Brands.SingleOrDefault(b => b.BrandName == "YPF"),
+                    //Coordinates = context.Locations.FirstOrDefault(x => x.Latitude == -32.9505873),
+                    IsGNC = true,
+                    StationName = "ACA Oroño"
                 });
+
+            context.SaveChanges();
 
             //context.People.AddOrUpdate(p => new { p.FirstName, p.LastName }, people);
 

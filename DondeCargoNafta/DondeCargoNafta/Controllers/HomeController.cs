@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DondeCargoNafta.Data.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,8 @@ namespace DondeCargoNafta.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var stations = new StationsRepository().GetStations();
+            return View(stations);
         }
 
         public ActionResult About()

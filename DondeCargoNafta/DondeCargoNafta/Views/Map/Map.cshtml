@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Donde Cargo Nafta</title>
+    <style>
+        #map {
+            width: 100%;
+            height: 400px;
+            background-color: grey;
+        }
+    </style>
+    <script>
+        function initMap() {
+            var Rosario = { lat: -32.9507, lng: -60.6665 };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: Rosario
+            });
+            var marker = new google.maps.Marker({
+                position: Rosario,
+                map: map
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwHAf2L2j-7mCjh9ArSAxCLvNdUxgp-Hg&callback=initMap">
+    </script>
+</head>
+<body>
+    <h1>Mapa</h1>
+    <div id="map"></div>
+</body>
+</html>
